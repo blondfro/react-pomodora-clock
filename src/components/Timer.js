@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Timer() {
+function Timer({ typeID, title, incrID, decrID, lengthID, length, click }) {
     return (
         <div>
             

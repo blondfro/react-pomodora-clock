@@ -37,4 +37,83 @@
   }
 }
 
+body {
+  background-color: #DC9369;
+  color: #FFDCC8;
+}
 
+h1 {
+  padding-left: 25px;
+  padding-right: 25px;
+  width: 100px;
+  text-align: center;
+}
+
+h4 {
+  /*   border: 2px solid; */
+  border-bottom: 2px solid;
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  border: 3px solid;
+  border-radius: 50px;
+  border-color: #4B6B90;
+  background-color: none;
+}
+
+.btn-outline-dark {
+  color: #4B6B90
+}
+
+#pomodora-clock {
+  margin-top: 25px;
+  margin-left: 35%;
+  margin-right: 35%;
+  border: 2px solid;
+  border-radius: 5%;
+  width: 30%
+}
+
+#app-title {
+  text-align: center;
+  /*   border: 1px solid; */
+  width: 100%;
+}
+
+#counters {
+  /*   border: 1px solid; */
+  width: 100%;
+  padding: 10px;
+}
+
+#count-down {
+  /*   border: 1px solid; */
+  width: 100%;
+  padding: 10px;
+}
+
+#timer-label {
+  text-align: center;
+  border-bottom: 2px solid;
+
+}
+
+#time-left {
+  text-align: center;
+  border: 1px solid;
+  width: 100%;
+  background-color: #FFC4A2;
+  color: #17375E;
+}
+
+#start_stop {
+  margin-left: 5%;
+}
+
+#reset {
+  margin-left: 65%;
+}
