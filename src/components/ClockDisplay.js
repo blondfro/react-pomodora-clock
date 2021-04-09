@@ -17,7 +17,6 @@ function ClockDisplay({ timerType, timeLeft, running, begin, reset }) {
         }
 
         clock();
-        console.log('length has changed', timeLeft);
 
     }, [timeLeft])
 

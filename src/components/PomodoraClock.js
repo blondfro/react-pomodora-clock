@@ -17,6 +17,8 @@ function PomodoraClock() {
         running: false
     });
 
+    const [intervalID, setIntervalID] = useState(null);
+
     // useEffect(() => {
     //     clock();
     //
@@ -25,21 +27,28 @@ function PomodoraClock() {
 
     let alarmSound;
 
+
+
     // this will be for the set interval countdown.
-    let tickHandler;
+    // let tickHandler;
 
 
     // the ticker to decrement the timer.
     const ticker = () => {
         if(clockState.timeLeft === 0) {
-            clearInterval(tickHandler);
-            setClockState({...clockState, running: false});
+            clearInterval(intervalID);
             alarmSound.play();
             switchTimer();
+            setClockState({...clockState, running: false});
         } else {
             let tmp = clockState.timeLeft;
-            setClockState({...clockState, timeLeft: tmp - 1});
             console.log(clockState.timeLeft);
+            setClockState((prevState) => (
+                {
+                    ...prevState,
+                    timeLeft: prevState.timeLeft - 1
+                }
+            ));
         }
     }
 
@@ -47,10 +56,11 @@ function PomodoraClock() {
     const beginCountDown = () => {
         if (!clockState.running) {
             setClockState({...clockState, running: true});
-            tickHandler = setInterval(ticker, 1000);
+            const tickHandler = setInterval(ticker, 1000);
+            setIntervalID(tickHandler);
         } else {
-            clearInterval(tickHandler);
-            setClockState({...clockState, running: false})
+            clearInterval(intervalID);
+            return setClockState({...clockState, running: false})
         }
     }
 
@@ -132,7 +142,7 @@ function PomodoraClock() {
 
     // to reset the timer.
     const resetTimer = () => {
-        clearInterval(tickHandler);
+        clearInterval(intervalID);
         setClockState({
             timerType: 'Session',
             timeLeft: 1500,
