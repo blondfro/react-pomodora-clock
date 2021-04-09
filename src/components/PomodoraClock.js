@@ -144,7 +144,7 @@ function PomodoraClock() {
     const resetTimer = () => {
         clearInterval(intervalID);
         setClockState({
-            timerType: 'Session',
+            timerType: sessType.SESSION,
             timeLeft: 1500,
             sessLength: 25,
             brkLength: 5,
