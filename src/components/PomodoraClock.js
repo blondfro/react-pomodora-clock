@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import soundfile from '../assets/sounds/Twin-bell-alarm-clock-ringing-short.mp3';
 
 import Timer from "./Timer";
 import ClockDisplay from "./ClockDisplay";
@@ -17,17 +17,11 @@ function PomodoraClock() {
         running: false
     });
 
+    // create a state value to contain the callback value for the set interval.
     const [intervalID, setIntervalID] = useState(null);
 
-
-
-    // let alarmSound;
-
-
-
-    // this will be for the set interval countdown.
-    // let tickHandler;
-
+    // create a state variable to contain the audio file.
+    const [alarmSound] = useState(new Audio(soundfile));
 
     // the ticker to decrement the timer.
     const ticker = () => {
@@ -36,7 +30,7 @@ function PomodoraClock() {
             if (newTime >= 0) {
                 return {...prevState, timeLeft: newTime}
             } else {
-                // alarmSound.play();
+                alarmSound.play();
                 switchTimer();
             }
         });
@@ -89,8 +83,8 @@ function PomodoraClock() {
             brkLength: 5,
             running: false,
         });
-        // alarmSound.pause();
-        // alarmSound.currentTime = 0;
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
     }
 
     // to set the length of a session or break timer.
@@ -155,6 +149,7 @@ function PomodoraClock() {
                         lengthID='session-length' length={clockState.sessLength}
                         onClick={setSessionLength}
                     />
+
                     <Timer
                         typeID='break-label' title='Break Length'
                         incrID='break-increment' decrID='break-decrement'
@@ -173,9 +168,9 @@ function PomodoraClock() {
                     />
 
                 </div>
-                {/*<audio id="beep"*/}
-                {/*       src="../../public/sounds/Twin-bell-alarm-clock-ringing-short.mp3"*/}
-                {/*       ref={(audio) => {alarmSound = audio}}/>*/}
+                <audio id="beep"
+                       src={soundfile}
+                       ref={alarmSound} />
             </div>
         </div>
     )
