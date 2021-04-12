@@ -21,7 +21,7 @@ function PomodoraClock() {
 
 
 
-    let alarmSound;
+    // let alarmSound;
 
 
 
@@ -173,9 +173,9 @@ function PomodoraClock() {
                     />
 
                 </div>
-                <audio id="beep"
-                       src="../../public/sounds/Twin-bell-alarm-clock-ringing-short.mp3"
-                       ref={(audio) => {alarmSound = audio}}/>
+                {/*<audio id="beep"*/}
+                {/*       src="../../public/sounds/Twin-bell-alarm-clock-ringing-short.mp3"*/}
+                {/*       ref={(audio) => {alarmSound = audio}}/>*/}
             </div>
         </div>
     )
