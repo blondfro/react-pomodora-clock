@@ -11,7 +11,7 @@ function ClockDisplay({ timerType, timeLeft, running, begin, reset }) {
 
             minutes = minutes < 10 ? '0' + minutes : minutes;
             seconds = seconds < 10 ? '0' + seconds : seconds;
-
+            // console.log(timerType + ' time left: ' + timeLeft + ' and ' + minutes + ':' + seconds);
             setTimeDisplay(minutes + ':' + seconds);
             // return minutes + ':' + seconds;
         }
@@ -25,7 +25,7 @@ function ClockDisplay({ timerType, timeLeft, running, begin, reset }) {
 
 
     return (
-        <div>
+        <div className="container">
             <h2 id="timer-label">{timerType}</h2>
             <h1 id="time-left">
                 {timeDisplay}

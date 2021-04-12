@@ -19,10 +19,6 @@ function PomodoraClock() {
 
     const [intervalID, setIntervalID] = useState(null);
 
-    // useEffect(() => {
-    //     clock();
-    //
-    // }, [clockState.timeLeft])
 
 
     let alarmSound;
@@ -35,29 +31,25 @@ function PomodoraClock() {
 
     // the ticker to decrement the timer.
     const ticker = () => {
-        if(clockState.timeLeft === 0) {
-            clearInterval(intervalID);
-            alarmSound.play();
-            switchTimer();
-            setClockState({...clockState, running: false});
-        } else {
-            let tmp = clockState.timeLeft;
-            console.log(clockState.timeLeft);
-            setClockState((prevState) => (
-                {
-                    ...prevState,
-                    timeLeft: prevState.timeLeft - 1
-                }
-            ));
-        }
+        setClockState(prevState => {
+            const newTime = prevState.timeLeft -1;
+            if (newTime >= 0) {
+                return {...prevState, timeLeft: newTime}
+            } else {
+                // alarmSound.play();
+                switchTimer();
+            }
+        });
     }
 
     // to start the countdown.
     const beginCountDown = () => {
         if (!clockState.running) {
             setClockState({...clockState, running: true});
-            const tickHandler = setInterval(ticker, 1000);
-            setIntervalID(tickHandler);
+            const tickHandler = setInterval(() => {
+                setIntervalID(tickHandler);
+                ticker();
+            }, 100);
         } else {
             clearInterval(intervalID);
             return setClockState({...clockState, running: false})
@@ -66,28 +58,39 @@ function PomodoraClock() {
 
     // to switch the timer between session and break.
     const switchTimer = () => {
-        switch(clockState.timerType) {
+        switch (clockState.timerType) {
             case 'SESSION': {
-                setClockState({
-                    ...clockState,
+                setClockState(prevState => ({
+                    ...prevState,
                     timerType: sessType.BREAK,
-                    timeLeft: clockState.brkLength * 60
-                });
-                beginCountDown();
+                    timeLeft: prevState.brkLength * 60
+                }));
                 break;
             }
             case 'BREAK': {
-                setClockState({
-                    ...clockState,
+                setClockState(prevState => ({
+                    ...prevState,
                     timerType: sessType.SESSION,
-                    timeLeft: clockState.sessLength * 60
-                });
-                beginCountDown();
+                    timeLeft: prevState.sessLength * 60
+                }));
                 break;
             }
-            default:
-                break;
+            default: break;
         }
+    }
+
+    // to reset the timer.
+    const resetTimer = () => {
+        clearInterval(intervalID);
+        setClockState({
+            timerType: sessType.SESSION,
+            timeLeft: 1500,
+            sessLength: 25,
+            brkLength: 5,
+            running: false,
+        });
+        // alarmSound.pause();
+        // alarmSound.currentTime = 0;
     }
 
     // to set the length of a session or break timer.
@@ -140,30 +143,6 @@ function PomodoraClock() {
         }
     }
 
-    // to reset the timer.
-    const resetTimer = () => {
-        clearInterval(intervalID);
-        setClockState({
-            timerType: sessType.SESSION,
-            timeLeft: 1500,
-            sessLength: 25,
-            brkLength: 5,
-            running: false,
-        });
-        alarmSound.pause();
-        alarmSound.currentTime = 0;
-    }
-
-    // this will update the clock display.
-    // const clock = () => {
-    //     let minutes = Math.floor(clockState.timeLeft / 60);
-    //     let seconds = clockState.timeLeft - minutes * 60;
-    //
-    //     minutes = minutes < 10 ? '0' + minutes : minutes;
-    //     seconds = seconds < 10 ? '0' + seconds : seconds;
-    //
-    //     return minutes + ':' + seconds;
-    // }
 
     return (
         <div>
@@ -195,7 +174,7 @@ function PomodoraClock() {
 
                 </div>
                 <audio id="beep"
-                       src="http://www.blondfro.com/sounds/mp3s/Twin-bell-alarm-clock-ringing-short.mp3"
+                       src="../../public/sounds/Twin-bell-alarm-clock-ringing-short.mp3"
                        ref={(audio) => {alarmSound = audio}}/>
             </div>
         </div>
