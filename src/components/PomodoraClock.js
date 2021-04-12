@@ -43,7 +43,7 @@ function PomodoraClock() {
             const tickHandler = setInterval(() => {
                 setIntervalID(tickHandler);
                 ticker();
-            }, 100);
+            }, 1000);
         } else {
             clearInterval(intervalID);
             return setClockState({...clockState, running: false})
